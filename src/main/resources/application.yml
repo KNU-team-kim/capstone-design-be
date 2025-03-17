@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: stream
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST}/STREAM
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
