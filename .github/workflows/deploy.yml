@@ -50,6 +50,7 @@ jobs:
           script: |
             sudo docker rm -f stream-app
             sudo docker system prune -af
+            sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }}
             sudo docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }} stream-app
             sudo docker run -d --name stream-app -e TZ=Asia/Seoul -p 8080:8080 stream-app
