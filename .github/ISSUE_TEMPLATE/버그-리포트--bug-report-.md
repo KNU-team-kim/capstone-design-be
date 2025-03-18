@@ -1,6 +1,10 @@
 ---
 name: 버그 리포트 (Bug Report)
-label: bug
+about: 버그를 보고할 때 사용하는 이슈
+title: ''
+labels: bug
+assignees: ''
+
 ---
 
 ## Description

@@ -1,6 +1,10 @@
 ---
 name: 기능 (Feature)
-label: feature
+about: 새로운 기능을 추가할 때 사용하는 이슈
+title: ''
+labels: feature
+assignees: ''
+
 ---
 
 ## Description
