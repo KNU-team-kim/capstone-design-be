@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SHORT_SHA: ${GITHUB_SHA::7}
       DB_HOST: ${{ secrets.DB_HOST }}
       DB_USER: ${{ secrets.DB_USER }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -38,8 +37,8 @@ jobs:
           --build-arg DB_USER="${{ env.DB_USER }}" \
           --build-arg DB_PASSWORD="${{ env.DB_PASSWORD }}" \
           -t stream-app . 
-          docker tag stream-app ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }}
-          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }}
+          docker tag stream-app ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ github.sha }}
 
       - name: SSH Connection and Deploy to Server
         uses: appleboy/ssh-action@master
@@ -51,6 +50,6 @@ jobs:
             sudo docker rm -f stream-app
             sudo docker system prune -af
             sudo docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }}
-            sudo docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }} stream-app
+            sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ github.sha }}
+            sudo docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ github.sha }} stream-app
             sudo docker run -d --name stream-app -e TZ=Asia/Seoul -p 8080:8080 stream-app
