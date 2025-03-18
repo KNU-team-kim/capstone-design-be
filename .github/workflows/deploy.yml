@@ -52,4 +52,4 @@ jobs:
             sudo docker system prune -af
             sudo docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }}
             sudo docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/stream-app:${{ env.SHORT_SHA }} stream-app
-            sudo docker run -d --name stream-app -e TZ=Asia/Seoul -p 8080:8080
+            sudo docker run -d --name stream-app -e TZ=Asia/Seoul -p 8080:8080 stream-app
