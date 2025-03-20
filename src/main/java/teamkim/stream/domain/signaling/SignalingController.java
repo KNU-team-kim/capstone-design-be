@@ -24,4 +24,11 @@ public class SignalingController {
         log.info("[ANSWER] cam{} : {}", camNum, answer);
         return answer;
     }
+
+    @MessageMapping("/iceCandidate/{camNum}")
+    @SendTo("/topic/iceCandidate/{camNum}")
+    public String handleIceCandidate(@Payload String iceCandidate, @DestinationVariable(value = "camNum") String camNum) {
+        log.info("[ICECANDIDATE] cam{} : {}", camNum, iceCandidate);
+        return iceCandidate;
+    }
 }
