@@ -17,4 +17,11 @@ public class SignalingController {
         log.info("[OFFER] cam{} : {}", camNum, offer);
         return offer;
     }
+
+    @MessageMapping("/answer/{camNum}")
+    @SendTo("/topic/answer/{camNum}")
+    public String handleAnswer(@Payload String answer, @DestinationVariable(value = "camNum") String camNum) {
+        log.info("[ANSWER] cam{} : {}", camNum, answer);
+        return answer;
+    }
 }
