@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-public class LogEntity {
+@Entity(name = "logging_entity")
+public class LoggingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class LogEntity {
     @Enumerated(EnumType.STRING)
     private Direction direction;
 
-    public LogEntity(ClassType classType, LocalDateTime createAt, Direction direction) {
+    public LoggingEntity(ClassType classType, LocalDateTime createAt, Direction direction) {
         this.classType = classType;
         this.createAt = createAt;
         this.direction = direction;

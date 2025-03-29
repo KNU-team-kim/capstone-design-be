@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class LogService {
+public class LoggingService {
 
     @Autowired
-    private LogRepository logRepository;
+    private LoggingRepository loggingRepository;
 
     public void saveLog(ClassType classType, Direction direction) {
-        LogEntity log = new LogEntity(classType, LocalDateTime.now(), direction);
-        logRepository.save(log);
+        LoggingEntity log = new LoggingEntity(classType, LocalDateTime.now(), direction);
+        loggingRepository.save(log);
     }
 }

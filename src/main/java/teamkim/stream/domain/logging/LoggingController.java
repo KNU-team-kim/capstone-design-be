@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/logs")
-public class LogController {
+public class LoggingController {
 
-    private final LogService logService;
+    private final LoggingService loggingService;
 
     @Autowired
-    public LogController(LogService logService) {
-        this.logService = logService;
+    public LoggingController(LoggingService loggingService) {
+        this.loggingService = loggingService;
     }
 
     @PostMapping("/save")
     public ResponseEntity<String> saveLog(@RequestParam ClassType classType, @RequestParam Direction direction) {
-        logService.saveLog(classType, direction);
+        loggingService.saveLog(classType, direction);
         return ResponseEntity.ok("Log saved successfully");
     }
 }
