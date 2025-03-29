@@ -24,4 +24,8 @@ public class LoggingService {
     public List<LoggingEntity> getAllLogs() {
         return loggingRepository.findAll();
     }
+
+    public List<LoggingEntity> getLogsByClassType(ClassType classType) {
+        return loggingRepository.findByClassType(classType);
+    }
 }

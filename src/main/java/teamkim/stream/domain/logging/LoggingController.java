@@ -28,4 +28,10 @@ public class LoggingController {
         List<LoggingEntity> logs = loggingService.getAllLogs();
         return ResponseEntity.ok(logs);
     }
+
+    @GetMapping("/classType/{classType}")
+    public ResponseEntity<List<LoggingEntity>> getLogsByClassType(@PathVariable ClassType classType) {
+        List<LoggingEntity> logs = loggingService.getLogsByClassType(classType);
+        return ResponseEntity.ok(logs);
+    }
 }
