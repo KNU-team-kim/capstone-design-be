@@ -7,4 +7,6 @@ import java.util.List;
 public interface LoggingRepository extends JpaRepository<LoggingEntity, Long> {
 
     List<LoggingEntity> findByClassType(ClassType classType);
+
+    List<LoggingEntity> findByDirection(Direction direction);
 }

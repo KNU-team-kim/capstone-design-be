@@ -28,4 +28,8 @@ public class LoggingService {
     public List<LoggingEntity> getLogsByClassType(ClassType classType) {
         return loggingRepository.findByClassType(classType);
     }
+
+    public List<LoggingEntity> getLogsByDirection(Direction direction) {
+        return loggingRepository.findByDirection(direction);
+    }
 }

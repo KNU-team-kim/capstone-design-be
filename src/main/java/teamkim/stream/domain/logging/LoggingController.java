@@ -34,4 +34,10 @@ public class LoggingController {
         List<LoggingEntity> logs = loggingService.getLogsByClassType(classType);
         return ResponseEntity.ok(logs);
     }
+
+    @GetMapping("/direction/{direction}")
+    public ResponseEntity<List<LoggingEntity>> getLogsByDirection(@PathVariable Direction direction) {
+        List<LoggingEntity> logs = loggingService.getLogsByDirection(direction);
+        return ResponseEntity.ok(logs);
+    }
 }
