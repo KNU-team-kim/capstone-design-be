@@ -2,10 +2,9 @@ package teamkim.stream.domain.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/logs")
@@ -22,5 +21,11 @@ public class LoggingController {
     public ResponseEntity<String> saveLog(@RequestParam ClassType classType, @RequestParam Direction direction) {
         loggingService.saveLog(classType, direction);
         return ResponseEntity.ok("Log saved successfully");
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<LoggingEntity>> getAllLogs() {
+        List<LoggingEntity> logs = loggingService.getAllLogs();
+        return ResponseEntity.ok(logs);
     }
 }
