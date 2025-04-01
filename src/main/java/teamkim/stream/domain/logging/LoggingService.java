@@ -16,8 +16,8 @@ public class LoggingService {
         this.loggingRepository = loggingRepository;
     }
 
-    public void saveLog(ClassType classType, float confidence, String imageUrl, Direction direction) {
-        LoggingEntity log = new LoggingEntity(classType, confidence, imageUrl, LocalDateTime.now(), direction);
+    public void saveLog(ClassType classType, float confidence, String imageUrl, DirectionType directionType) {
+        LoggingEntity log = new LoggingEntity(classType, confidence, imageUrl, LocalDateTime.now(), directionType);
         loggingRepository.save(log);
     }
 
@@ -29,7 +29,7 @@ public class LoggingService {
         return loggingRepository.findByClassType(classType);
     }
 
-    public List<LoggingEntity> getLogsByDirection(Direction direction) {
-        return loggingRepository.findByDirection(direction);
+    public List<LoggingEntity> getLogsByDirectionType(DirectionType directionType) {
+        return loggingRepository.findByDirectionType(directionType);
     }
 }

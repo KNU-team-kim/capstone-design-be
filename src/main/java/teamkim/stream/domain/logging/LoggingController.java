@@ -26,9 +26,9 @@ public class LoggingController {
             @RequestParam ClassType classType,
             @RequestParam float confidence,
             @RequestParam String imageUrl,
-            @RequestParam Direction direction
+            @RequestParam DirectionType directionType
     ) {
-        loggingService.saveLog(classType, confidence, imageUrl, direction);
+        loggingService.saveLog(classType, confidence, imageUrl, directionType);
         return ResponseEntity.ok("Log saved successfully");
     }
 
@@ -47,11 +47,11 @@ public class LoggingController {
         return ResponseEntity.ok(logs);
     }
 
-    @Operation(summary = "Get logs by Direction", description = "Retrieve log entries by Direction")
-    @GetMapping("/direction/{direction}")
+    @Operation(summary = "Get logs by Direction", description = "Retrieve log entries by DirectionType")
+    @GetMapping("/directionType/{directionType}")
     public ResponseEntity<List<LoggingEntity>> getLogsByDirection(
-            @Parameter(description = "Direction to filter the logs") @PathVariable Direction direction) {
-        List<LoggingEntity> logs = loggingService.getLogsByDirection(direction);
+            @Parameter(description = "DirectionType to filter the logs") @PathVariable DirectionType directionType) {
+        List<LoggingEntity> logs = loggingService.getLogsByDirectionType(directionType);
         return ResponseEntity.ok(logs);
     }
 }

@@ -8,5 +8,5 @@ public interface LoggingRepository extends JpaRepository<LoggingEntity, Long> {
 
     List<LoggingEntity> findByClassType(ClassType classType);
 
-    List<LoggingEntity> findByDirection(Direction direction);
+    List<LoggingEntity> findByDirectionType(DirectionType directionType);
 }

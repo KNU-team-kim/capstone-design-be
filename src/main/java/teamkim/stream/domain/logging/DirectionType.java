@@ -1,5 +1,5 @@
 package teamkim.stream.domain.logging;
 
-public enum Direction {
+public enum DirectionType {
     FRONT, BACK, LEFT, RIGHT
 }
