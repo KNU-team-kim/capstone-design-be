@@ -18,22 +18,22 @@ public class LoggingEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private ClassType classType; // YOLO 클래스 타입
+    private ClassType classType;
 
-    private float confidence; // YOLO 탐지 정확도(%)
+    private float confidence;
 
-    private String imageUrl; //탐지된 이미지 (S3 URL)
+    private String imageUrl;
 
-    private LocalDateTime createdAt; // 탐지된 시간
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
-    private Direction direction; // 카메라 방향
+    private Direction direction;
 
     public LoggingEntity(ClassType classType, float confidence, String imageUrl, LocalDateTime createdAt, Direction direction) {
         this.classType = classType;
         this.confidence = confidence;
         this.imageUrl = imageUrl;
-        this.createdAt = createdAt;
+        this.createdAt = createdAt;;
         this.direction = direction;
     }
 }

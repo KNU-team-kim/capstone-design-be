@@ -16,8 +16,8 @@ public class LoggingService {
         this.loggingRepository = loggingRepository;
     }
 
-    public void saveLog(ClassType classType, Direction direction) {
-        LoggingEntity log = new LoggingEntity(classType, LocalDateTime.now(), direction);
+    public void saveLog(ClassType classType, float confidence, String imageUrl, Direction direction) {
+        LoggingEntity log = new LoggingEntity(classType, confidence, imageUrl, LocalDateTime.now(), direction);
         loggingRepository.save(log);
     }
 

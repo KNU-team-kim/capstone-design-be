@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -19,13 +20,15 @@ public class LoggingController {
         this.loggingService = loggingService;
     }
 
-    @Operation(summary = "Save a log", description = "Save a new log entry with ClassType and Direction")
+    @Operation(summary = "Save a log", description = "Save a new log entry with ClassType, Direction, Confidence, and Image URL")
     @PostMapping("/save")
     public ResponseEntity<String> saveLog(
-            @Parameter(description = "ClassType of the log entry") @RequestParam ClassType classType,
-            @Parameter(description = "Direction of the log entry") @RequestParam Direction direction
+            @RequestParam ClassType classType,
+            @RequestParam float confidence,
+            @RequestParam String imageUrl,
+            @RequestParam Direction direction
     ) {
-        loggingService.saveLog(classType, direction);
+        loggingService.saveLog(classType, confidence, imageUrl, direction);
         return ResponseEntity.ok("Log saved successfully");
     }
 
