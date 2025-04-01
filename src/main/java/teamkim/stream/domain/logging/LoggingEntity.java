@@ -20,14 +20,20 @@ public class LoggingEntity {
     @Enumerated(EnumType.STRING)
     private ClassType classType;
 
-    private LocalDateTime createAt;
+    private float confidence;
+
+    private String imageUrl;
+
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private Direction direction;
 
-    public LoggingEntity(ClassType classType, LocalDateTime createAt, Direction direction) {
+    public LoggingEntity(ClassType classType, float confidence, String imageUrl, LocalDateTime createdAt, Direction direction) {
         this.classType = classType;
-        this.createAt = createAt;
+        this.confidence = confidence;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
         this.direction = direction;
     }
 }
