@@ -1,9 +1,11 @@
-package teamkim.stream.domain.logging;
+package teamkim.stream.domain.logging.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import teamkim.stream.domain.logging.enums.ClassType;
+import teamkim.stream.domain.logging.enums.DirectionType;
 
 import java.time.LocalDateTime;
 

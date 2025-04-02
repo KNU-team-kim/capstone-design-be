@@ -1,12 +1,15 @@
-package teamkim.stream.domain.logging;
+package teamkim.stream.domain.logging.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import teamkim.stream.domain.logging.enums.ClassType;
+import teamkim.stream.domain.logging.enums.DirectionType;
+import teamkim.stream.domain.logging.entity.LoggingEntity;
+import teamkim.stream.domain.logging.service.LoggingService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

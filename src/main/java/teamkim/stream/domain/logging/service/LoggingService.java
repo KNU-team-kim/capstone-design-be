@@ -1,7 +1,11 @@
-package teamkim.stream.domain.logging;
+package teamkim.stream.domain.logging.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import teamkim.stream.domain.logging.enums.ClassType;
+import teamkim.stream.domain.logging.enums.DirectionType;
+import teamkim.stream.domain.logging.entity.LoggingEntity;
+import teamkim.stream.domain.logging.repository.LoggingRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
