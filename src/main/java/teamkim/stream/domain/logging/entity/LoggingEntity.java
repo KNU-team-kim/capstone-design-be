@@ -26,16 +26,19 @@ public class LoggingEntity {
 
     private String imageUrl;
 
+    private String fileName;
+
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private DirectionType directionType;
 
-    public LoggingEntity(ClassType classType, float confidence, String imageUrl, LocalDateTime createdAt, DirectionType directionType) {
+    public LoggingEntity(ClassType classType, float confidence, String imageUrl, String fileName, LocalDateTime createdAt, DirectionType directionType) {
         this.classType = classType;
         this.confidence = confidence;
         this.imageUrl = imageUrl;
-        this.createdAt = createdAt;;
+        this.fileName = fileName;
+        this.createdAt = createdAt;
         this.directionType = directionType;
     }
 }
