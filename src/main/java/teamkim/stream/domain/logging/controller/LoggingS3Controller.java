@@ -20,14 +20,14 @@ public class LoggingS3Controller {
     // 업로드 Presigned URL 생성 API
     @GetMapping("/presigned/upload")
     public ResponseEntity<String> generateUploadUrl(@RequestParam String fileName) {
-        URL presignedUrl = loggingS3Service.generatePresignedUrlForUpload(fileName);
-        return ResponseEntity.ok(presignedUrl.toString());
+        String presignedUrl = loggingS3Service.getUploadPresignedUrl(fileName);
+        return ResponseEntity.ok(presignedUrl);
     }
 
     // 다운로드 Presigned URL 생성 API
     @GetMapping("/presigned/download")
     public ResponseEntity<String> generateDownloadUrl(@RequestParam String fileName) {
-        URL presignedUrl = loggingS3Service.generatePresignedUrlForDownload(fileName);
-        return ResponseEntity.ok(presignedUrl.toString());
+        String fileUrl = loggingS3Service.getS3FileUrl(fileName);
+        return ResponseEntity.ok(fileUrl);
     }
 }

@@ -1,5 +1,8 @@
 package teamkim.stream.domain.logging.service;
 
+import com.amazonaws.HttpMethod;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,64 +17,30 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
 public class LoggingS3Service {
+    private final AmazonS3 amazonS3;
 
-    @Value("${aws.access-key}")
-    private String accessKey;
+    private final String bucketName = "presigned-url-bucket-teamkim";
 
-    @Value("${aws.secret-key}")
-    private String secretKey;
+    // Presigned URL 생성 메서드 (업로드용)
+    public String getUploadPresignedUrl(String fileName) {
+        Date expiration = new Date();
+        expiration.setTime(expiration.getTime() + 600 * 1000); // 10분 후 만료
 
-    @Value("${aws.region}")
-    private String region;
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucketName, fileName)
+                        .withMethod(HttpMethod.PUT)
+                        .withExpiration(expiration);
 
-    @Value("${aws.bucket-name}")
-    private String bucketName;
-
-    // S3 Presigned URL 생성 메서드 (업로드용)
-    public URL generatePresignedUrlForUpload(String fileName) {
-        try (S3Presigner presigner = createS3Presigner()) {
-            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
-
-            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10)) // Presigned URL 유효 기간
-                    .putObjectRequest(putObjectRequest)
-                    .build();
-
-            return presigner.presignPutObject(presignRequest).url();
-        }
+        return amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
     }
 
-    // S3 Presigned URL 생성 메서드 (다운로드용)
-    public URL generatePresignedUrlForDownload(String fileName) {
-        try (S3Presigner presigner = createS3Presigner()) {
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
-
-            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(10)) // Presigned URL 유효 기간
-                    .getObjectRequest(getObjectRequest)
-                    .build();
-
-            return presigner.presignGetObject(presignRequest).url();
-        }
-    }
-
-    // AWS S3 Presigner 생성
-    private S3Presigner createS3Presigner() {
-        return S3Presigner.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(accessKey, secretKey)
-                ))
-                .build();
+    // 업로드된 S3 이미지의 최종 URL 반환 메서드
+    public String getS3FileUrl(String fileName) {
+        return "https://" + bucketName + ".s3.ap-northeast-2.amazonaws.com/" + fileName;
     }
 }
