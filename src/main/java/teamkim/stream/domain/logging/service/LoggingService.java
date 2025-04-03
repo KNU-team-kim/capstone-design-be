@@ -23,10 +23,10 @@ public class LoggingService {
     @Transactional
     public LoggingEntity saveLog(ClassType classType, float confidence, String fileName, DirectionType directionType) {
 
-        // fileName이 없으면 UUID로 자동 생성
-        if (fileName == null || fileName.isEmpty()) {
-            fileName = UUID.randomUUID().toString() + ".jpg";
-        }
+//        // fileName이 없으면 UUID로 자동 생성
+//        if (fileName == null || fileName.isEmpty()) {
+//            fileName = UUID.randomUUID().toString() + ".jpg";
+//        }
 
         // Presigned URL 생성
         String imageUrl = loggingS3Service.getS3FileUrl(fileName);
