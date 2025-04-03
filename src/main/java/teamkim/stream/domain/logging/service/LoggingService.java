@@ -11,6 +11,7 @@ import teamkim.stream.domain.logging.repository.LoggingRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +23,9 @@ public class LoggingService {
     @Transactional
     public LoggingEntity saveLog(ClassType classType, float confidence, String fileName, DirectionType directionType) {
 
+        // fileName이 없으면 UUID로 자동 생성
         if (fileName == null || fileName.isEmpty()) {
-            throw new IllegalArgumentException("fileName must not be null or empty");
+            fileName = UUID.randomUUID().toString() + ".jpg";
         }
 
         // Presigned URL 생성
