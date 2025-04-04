@@ -11,3 +11,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+aws:
+  access-key: ${AWS_ACCESS_KEY_ID}
+  secret-key: ${AWS_SECRET_ACCESS_KEY}
+  region: "ap-northeast-2"
+  bucket-name: "presigned-url-bucket-teamkim"
