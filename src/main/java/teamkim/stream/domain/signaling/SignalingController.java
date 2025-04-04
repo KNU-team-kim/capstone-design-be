@@ -11,24 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SignalingController {
 
-    @MessageMapping("/offer/{camNum}")
-    @SendTo("/topic/offer/{camNum}")
-    public String handleOffer(@Payload String offer, @DestinationVariable(value = "camNum") String camNum) {
-        log.info("[OFFER] cam{} : {}", camNum, offer);
+    @MessageMapping("/offer")
+    @SendTo("/topic/offer")
+    public String handleOffer(@Payload String offer) {
+        log.info("[OFFER] {}", offer);
         return offer;
     }
 
-    @MessageMapping("/answer/{camNum}")
-    @SendTo("/topic/answer/{camNum}")
-    public String handleAnswer(@Payload String answer, @DestinationVariable(value = "camNum") String camNum) {
-        log.info("[ANSWER] cam{} : {}", camNum, answer);
+    @MessageMapping("/answer/{client-id}")
+    @SendTo("/topic/answer/{client-id}")
+    public String handleAnswer(@Payload String answer, @DestinationVariable(value = "client-id") String clientId) {
+        log.info("[ANSWER] client-({}) : {}", clientId, answer);
         return answer;
-    }
-
-    @MessageMapping("/iceCandidate/{camNum}")
-    @SendTo("/topic/iceCandidate/{camNum}")
-    public String handleIceCandidate(@Payload String iceCandidate, @DestinationVariable(value = "camNum") String camNum) {
-        log.info("[ICECANDIDATE] cam{} : {}", camNum, iceCandidate);
-        return iceCandidate;
     }
 }
