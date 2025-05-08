@@ -1,47 +1,52 @@
 package teamkim.stream.domain.logging.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import teamkim.stream.domain.logging.dto.LogPageResponseDto;
+import teamkim.stream.domain.logging.dto.LogResponseDto;
+import teamkim.stream.domain.logging.entity.ClassEntity;
 import teamkim.stream.domain.logging.enums.ClassType;
 import teamkim.stream.domain.logging.enums.DirectionType;
 import teamkim.stream.domain.logging.entity.LoggingEntity;
+import teamkim.stream.domain.logging.repository.ClassRepository;
 import teamkim.stream.domain.logging.repository.LoggingRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class LoggingService {
 
     private final LoggingRepository loggingRepository;
+    private final ClassRepository classRepository;
     private final LoggingS3Service loggingS3Service;
 
     @Transactional
-    public LoggingEntity saveLog(ClassType classType, float confidence, String fileName, DirectionType directionType) {
-
-//        // fileName이 없으면 UUID로 자동 생성
-//        if (fileName == null || fileName.isEmpty()) {
-//            fileName = UUID.randomUUID().toString() + ".jpg";
-//        }
+    public void saveLog(List<ClassType> classTypes, float confidence, String fileName, DirectionType directionType) {
 
         // Presigned URL 생성
         String imageUrl = loggingS3Service.getS3FileUrl(fileName);
 
-        // LoggingEntity 생성 및 저장
-        LoggingEntity log = new LoggingEntity(
-                classType,
-                confidence,
-                imageUrl,
-                fileName,
-                LocalDateTime.now(),
-                directionType
-        );
+        // LoggingEntity 생성
+        LoggingEntity log = LoggingEntity.builder()
+                .confidence(confidence)
+                .directionType(directionType)
+                .imageUrl(imageUrl)
+                .build();
 
-        return loggingRepository.save(log);
+        loggingRepository.save(log);
+
+        // ClassEntity 생성
+        List<ClassEntity> classes = classTypes.stream().map(classType -> ClassEntity.builder()
+                .loggingEntity(log)
+                .classType(classType)
+                .build()
+        ).toList();
+
+        classRepository.saveAll(classes);
     }
 
     // 전체 로그 조회
