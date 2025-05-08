@@ -49,6 +49,17 @@ public class LoggingService {
         classRepository.saveAll(classes);
     }
 
+    public LogPageResponseDto getLogsByOptions(ClassType classType, DirectionType directionType, Pageable pageable) {
+        Page<Long> pageIds = loggingRepository.findIdsByOptionsWithPaging(pageable, classType, directionType);
+        List<LogResponseDto> logs = loggingRepository.findLogDetailByIdsFetch(pageIds.getContent()).stream().map(LogResponseDto::from).toList();
+
+        return LogPageResponseDto.builder()
+                .totalPage(pageIds.getTotalPages())
+                .logs(logs)
+                .build();
+    }
+
+    /*
     // 전체 로그 조회
     public List<LoggingEntity> getAllLogs() {
         return loggingRepository.findAll();
@@ -63,4 +74,5 @@ public class LoggingService {
     public List<LoggingEntity> getLogsByDirectionType(DirectionType directionType) {
         return loggingRepository.findByDirectionType(directionType);
     }
+    */
 }
