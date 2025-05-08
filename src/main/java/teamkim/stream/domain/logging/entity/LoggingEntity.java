@@ -1,6 +1,7 @@
 package teamkim.stream.domain.logging.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +9,9 @@ import teamkim.stream.domain.logging.enums.ClassType;
 import teamkim.stream.domain.logging.enums.DirectionType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity(name = "logging_entity")
 public class LoggingEntity {
@@ -19,26 +20,23 @@ public class LoggingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private ClassType classType;
-
     private float confidence;
 
     private String imageUrl;
-
-    private String fileName;
 
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private DirectionType directionType;
 
-    public LoggingEntity(ClassType classType, float confidence, String imageUrl, String fileName, LocalDateTime createdAt, DirectionType directionType) {
-        this.classType = classType;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "loggingEntity")
+    List<ClassEntity> classEntityList;
+
+    @Builder
+    public LoggingEntity(float confidence, String imageUrl, DirectionType directionType) {
         this.confidence = confidence;
         this.imageUrl = imageUrl;
-        this.fileName = fileName;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDateTime.now();
         this.directionType = directionType;
     }
 }
