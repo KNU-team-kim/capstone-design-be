@@ -18,8 +18,8 @@ public class SignalingController {
         return offer;
     }
 
-    @MessageMapping("/answer/{client-id}")
-    @SendTo("/topic/answer/{client-id}")
+    @MessageMapping("/answer/{client-id}/{direction}")
+    @SendTo("/topic/answer/{client-id}/{direction}")
     public String handleAnswer(@Payload String answer, @DestinationVariable(value = "client-id") String clientId) {
         log.info("[ANSWER] client-({}) : {}", clientId, answer);
         return answer;

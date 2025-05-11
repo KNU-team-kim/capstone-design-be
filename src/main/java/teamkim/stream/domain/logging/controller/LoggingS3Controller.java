@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import teamkim.stream.domain.logging.service.LoggingS3Service;
 
-import java.net.URL;
-
 @RestController
 @RequestMapping("/api/s3")
 @RequiredArgsConstructor
