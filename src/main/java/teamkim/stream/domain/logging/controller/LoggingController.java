@@ -23,8 +23,14 @@ public class LoggingController {
     private final LoggingService loggingService;
 
     // 로그 저장 API (S3 URL 포함)
-    @Operation(summary = "로그 저장", description = "객체 탐지 정보를 저장한다.")
-    @PostMapping("/save")
+    @Operation(
+            summary = "로그 저장 API",
+            description = "객체 탐지 정보를 저장한다.",
+            responses = {
+                @ApiResponse(responseCode = "200", description = "성공", content = @Content())
+            }
+    )
+    @PostMapping
     public ResponseEntity<String> saveLog(@RequestBody LogRequestDto logRequestDto) {
         loggingService.saveLog(
                 logRequestDto.getClassTypes(),
