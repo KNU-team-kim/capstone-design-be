@@ -20,7 +20,8 @@ public interface LoggingRepository extends JpaRepository<LoggingEntity, Long> {
 
     @Query("select distinct l.id from logging_entity l left join l.classEntityList lc " +
             "where (:classType is null or lc.classType = :classType) " +
-            "and (:directionType is null or l.directionType = :directionType)")
+            "and (:directionType is null or l.directionType = :directionType)" +
+            "order by l.id desc")
     Page<Long> findIdsByOptionsWithPaging(Pageable pageable, ClassType classType, DirectionType directionType);
 
     @Query("select l from logging_entity l left join fetch l.classEntityList where l.id in :ids")
