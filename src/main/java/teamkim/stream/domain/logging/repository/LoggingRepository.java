@@ -24,6 +24,6 @@ public interface LoggingRepository extends JpaRepository<LoggingEntity, Long> {
             "order by l.id desc")
     Page<Long> findIdsByOptionsWithPaging(Pageable pageable, ClassType classType, DirectionType directionType);
 
-    @Query("select l from logging_entity l left join fetch l.classEntityList where l.id in :ids")
+    @Query("select l from logging_entity l left join fetch l.classEntityList where l.id in :ids order by l.id desc")
     List<LoggingEntity> findLogDetailByIdsFetch(List<Long> ids);
 }
