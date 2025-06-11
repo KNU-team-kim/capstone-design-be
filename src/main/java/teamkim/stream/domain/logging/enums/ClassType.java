@@ -1,5 +1,5 @@
 package teamkim.stream.domain.logging.enums;
 
 public enum ClassType {
-    PAPER_BOX, TRAFFIC_SIGN, CONTAINER, WOODEN_BUILDING, TREE, PLASTIC, DISPOSABLE_CUP
+    BOX, TRAFFIC_SIGN, CONTAINER, BICYCLE, TREE, PLASTIC_BAG, CUP
 }
